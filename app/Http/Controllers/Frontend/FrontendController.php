@@ -17,10 +17,10 @@ class FrontendController extends Controller
     {
         $data['categories'] = Category::where('status', 1)
         ->orderBy('category_name')->take(36)->get();
-        $data['jobPosts'] = JobPost::where('status',1)->latest()->take(40)->get();
-        $data['companyGovts'] = JobPost::where([['company_type','GOVT'],['status',1]])
+        $data['jobPosts'] = JobPost::where('status',1)->where('is_published', 1)->latest()->take(40)->get();
+        $data['companyGovts'] = JobPost::where([['company_type','GOVT'],['status',1],['is_published',1]])
         ->latest()->take(4)->get();
-        $data['companyPvts'] = JobPost::where([['company_type','PVT'],['status',1]])
+        $data['companyPvts'] = JobPost::where([['company_type','PVT'],['status',1], ['is_published',1]])
         ->latest()->take(4)->get();
         $data['companyCount'] = Company::count();
         $data['jobPostCount'] = JobPost::count();
