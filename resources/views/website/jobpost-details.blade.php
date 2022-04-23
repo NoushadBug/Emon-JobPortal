@@ -58,6 +58,9 @@
         <div class="card">
           <div class="card-body">
             <p>{!! $jobPost->description !!}</p>
+            <div class="text-center">
+              <a href="{{ route('apply.the.job', $jobPost->id) }}" class="btn site-btn ">Apply Now  <i class="bi bi-exclamation-circle"></i></a>
+            </div>
           </div>
         </div>
       </div>
