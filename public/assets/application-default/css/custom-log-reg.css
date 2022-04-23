@@ -1,0 +1,108 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: #F3F4F6;
+}
+label{
+    color: #2C3E50;
+    font-weight: 500;
+}
+.form-wrap{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-child{
+    width: 430px;
+    background: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+}
+.btn{
+    line-height: 1.3rem;
+}
+.btn:focus {
+    outline: 0;
+    box-shadow: none;
+}
+.btn-cutom{
+    background: #1F2937;
+    color: white;
+    letter-spacing: 1px;
+    font-size: 13px;
+}
+.btn-cutom:hover{
+    background: #374151;
+    color: white;
+}
+.forgot-login{
+    text-align: right;
+    display: flex;
+    justify-content: end;
+}
+.forgot-login .forgot{
+    margin-right: 10px;
+}
+.forgot-login .forgot a{
+    color: #535353;
+    font-size: 14px;
+    font-weight: 500;
+}
+.forgot-login .forgot a:hover{
+    color: #192531;
+}
+.form-control:focus{
+    box-shadow: none;
+    border-color: #1F2937;
+}
+.form-check-input:checked {
+    background-color: #2C3E50;
+    border-color: #2C3E50;
+}
+.form-check-input:focus {
+    border-color: #2C3E50;
+    box-shadow: none;
+}
+.socialite{
+    text-align: center;
+}
+.socialite h3{
+    font-size: 15px;
+    font-weight: 600;
+    color: #2C3E50;
+}
+.btn-outline-secondary:active:focus {
+    box-shadow: none;
+}
+.btn-outline-primary:active:focus {
+    box-shadow: none;
+}
+.btn-outline-danger:active:focus {
+    box-shadow: none;
+}
+.form-control.is-invalid:focus, .was-validated .form-control:invalid:focus {
+    border-color: #dc3545;
+    box-shadow: none;
+}
+.remember-me label{
+    font-size: 14px;
+}
+.logo{
+    width: 90px;
+    height: 90px;
+    background: white;
+    margin: auto;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+}
+.logo img{
+    width: 55px;
+    height: 55px;
+}

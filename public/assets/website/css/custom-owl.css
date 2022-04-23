@@ -1,0 +1,48 @@
+/* Product Carousel  */
+.OwlCarouselWrap .owl-nav{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+}
+.OwlCarouselWrap .owl-nav .owl-prev{
+    left: 0px;
+    margin-left: -40px;
+}
+.OwlCarouselWrap .owl-nav .owl-next{
+    right: 0px;
+    margin-right: -40px;
+}
+.OwlCarouselWrap .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev{
+    position: absolute;
+    display: block;
+    background: #C2000C;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    color: white;
+    font-size: 31px;
+    line-height: 20px;
+}
+.OwlCarouselWrap .owl-nav button.owl-prev:hover{
+    background: transparent;
+    border: 1px solid #C2000C;
+    color: #C2000C;
+}
+.OwlCarouselWrap .owl-nav button.owl-next:hover{
+    background: transparent;
+    border: 1px solid #C2000C;
+    color: #C2000C;
+}
+.owl-dots{
+    display: none;
+}
+@media only screen and (min-width: 992px) and (max-width: 1040px) {
+    .OwlCarouselWrap .owl-nav .owl-prev{
+        margin-left: -10px;
+    }
+    .OwlCarouselWrap .owl-nav .owl-next{
+        margin-right: -10px;
+    }
+}

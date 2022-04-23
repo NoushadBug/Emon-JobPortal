@@ -1,0 +1,147 @@
+/* Header Css */
+.top-header{
+    background-color: #C2000C;
+}
+.top-social{
+    padding-left: 40px;
+}
+.top-social a{
+    color: white;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+.top-social a:hover{
+    color: rgb(216, 216, 216);
+}
+.network span{
+    color: rgb(255, 255, 255);
+}
+.account img{
+    border: 1px solid white;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+/* Custom input Field */
+.form-control:focus {
+    border-color: #C2000C;
+    box-shadow: none;
+}
+/* Custom Button */
+.btn-warning:hover {
+    background-color: #C2000C;
+    border-color: #C2000C;
+}
+.btn-check:focus+.btn-warning, .btn-warning:focus {
+    background-color: #C2000C;
+    border-color: #C2000C;
+    box-shadow: none;
+}
+.btn-check:active+.btn-warning:focus, .btn-check:checked+.btn-warning:focus, .btn-warning.active:focus, .btn-warning:active:focus, .show>.btn-warning.dropdown-toggle:focus {
+    box-shadow: none;
+}
+/* Account */
+.account .dropdown-toggle::after {
+    content: none;
+}
+.account .btn-check:focus+.btn, .btn:focus {
+    box-shadow: none;
+}
+.login-signup a{
+    width: 50%;
+    border: 1px solid #C2000C;
+    margin: 2px;
+    font-size: 12px;
+}
+.login-signup .login{
+    background-color: #C2000C;
+    color: white;
+}
+.login-signup .login:hover{
+    background-color: white;
+    color: rgb(37, 37, 37);
+}
+.login-signup .signup:hover{
+    background-color: #C2000C;
+    color: white;
+}
+.account i{
+    margin-right: 10px;
+}
+.account-card > a{
+    color: rgb(95, 95, 95);
+    font-size: 14px;
+}
+.account-card > a:hover{
+    color: #C2000C;
+}
+
+
+
+/* Matrials Start */
+.body{
+    padding-top: 30px;
+}
+.matrials .title{
+    max-width: 900px;
+    margin: auto;
+}
+.materials-body{
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #e2e2e2;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+.materials-body:hover{
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+    /* box-shadow: 0 4px 8px 0 rgb(255 179 23 / 20%), 0 6px 20px 0 rgb(255 179 23 / 19%); */
+    transition: 0.3s;
+}
+/* Matrials End */
+
+
+
+/* Language Start */
+.language i{
+    color: #C2000C;
+    margin-right: 10px;
+    font-size: 20px;
+
+}
+.language ul li{
+    list-style-type: none;
+    display: flex;
+    padding: 6px 0px;
+}
+.language h5{
+    text-align: center;
+    background: #C2000C;
+    padding: 10px 0px;
+    border-radius: 5px;
+    color: white;
+}
+
+.ln-bd{
+    background-image: url(../img/language/1.png);
+    background-size: cover;
+    width: 100%;
+    background-repeat: no-repeat;
+}
+.ln-japan{
+    background-image: url(../img/language/2.png);
+    background-size: cover;
+    width: 100%;
+    background-repeat: no-repeat;
+}
+.ln-bd .ln-chield{
+    padding: 60px 15px;
+}
+.ln-japan .ln-chield{
+    padding: 60px 15px 60px 20px;
+}
+/* Language Start End */
