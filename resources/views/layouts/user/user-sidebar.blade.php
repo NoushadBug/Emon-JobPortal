@@ -47,12 +47,6 @@
       <li class="element-items mb-2"><i class="bi bi-key"></i> Change Password</li>
     </a>
 
-    <!-- Resume -->
-    <a href="{{ route('user.resume') }}">
-      <li class="element-items mb-2"><i class="bi bi-file-arrow-up"></i>CV/Resume</li>
-    </a>
-  
-  
     <!-- Logout List -->
     <li class="element-items mb-2">
       <a href="javascript:void(0);" onclick="event.preventDefault();

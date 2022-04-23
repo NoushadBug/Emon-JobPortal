@@ -42,9 +42,6 @@ class SearchController extends Controller
         $search = $request->input('search');
         // Search in the title
         $jobSearch = JobPost::where('job_title', 'LIKE', "%{$search}%")
-        ->orWhere('company_name', 'LIKE', "%{$search}%")
-        ->orWhere('company_type', 'LIKE', "%{$search}%")
-        ->orWhere('job_location', 'LIKE', "%{$search}%")
         ->where('status', true)
         ->where('is_published', true)
         ->get();

@@ -45,7 +45,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['auth', 'a
     Route::put('company/reject-job-post/{id}',[CompanyController::class, 'rejectJobPost'])->name('company.reject.job.post');
     Route::resource('pending-job', PendingJobController::class);
     Route::resource('approved-job', ApprovedJobController::class);
-    Route::resource('resume', ResumeContrller::class);
 
 });
 

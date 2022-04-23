@@ -60,29 +60,6 @@
                   <p>Companies Lists</p>
                 </a>
               </li>
-              {{-- <li class="nav-item">
-                <a href="{{ route('admin.data.table') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Create Company</p>
-                </a>
-              </li> --}}
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                Candidates
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('admin.resume.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Candidate Resume</p>
-                </a>
-              </li>
             </ul>
           </li>
           <li class="nav-item has-treeview">

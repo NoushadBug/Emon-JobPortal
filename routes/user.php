@@ -17,6 +17,4 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth', 'use
     Route::put('update-profile', [UserDashboardController::class, 'profileUpdate'])->name('update-profile');
     Route::get('change-passwrod', [UserDashboardController::class, 'changePassword'])->name('change.password');
     Route::put('update-password', [UserDashboardController::class, 'updatePassword'])->name('update.password');
-    Route::get('resume', [UserDashboardController::class, 'resume'])->name('resume');
-    Route::post('store-resume', [UserDashboardController::class, 'storeResume'])->name('store.resume');
 });
