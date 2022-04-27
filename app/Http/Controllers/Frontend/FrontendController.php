@@ -142,9 +142,9 @@ class FrontendController extends Controller
                 $applyJob->user_id = Auth::user()->id;
                 $applyJob->save();
                 // Find company role id for notify
-                $user = User::where('role_id',2)->get();
+                // $user = User::where('role_id',2)->get();
                 // Notify to Company for thi apply job request
-                Notification::send($user, new ApplyJobNotificationToCompany($applyJob));
+                // Notification::send($user, new ApplyJobNotificationToCompany($applyJob));
                 notify()->success("Success", "Successfully Apply");
                 return back();
             }else{
