@@ -1,5 +1,7 @@
 @extends('layouts.website.website-layouts')
-@section('page-title', '')
+@section('page-title') 
+{{ isset($companyInfo) ? $companyInfo != null ? Auth::user()->company->company_name . ' | Profile Edit' : 'Company Profile Edit' : 'Company Profile Edit'}} 
+@endsection
 @push('page-style')
 <link rel="stylesheet" href="{{ asset('assets/website/css/company-user-dashboard.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
@@ -38,12 +40,16 @@
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="company_name" class="form-label">Company Name</label>
-                  <input type="text" class="form-control" name="company_name" id="company_name" value="{{ $companyInfo != null ? $companyInfo->company_name : '' }}">
+                  <input type="text" class="form-control @error('company_name') is-invalid @enderror" name="company_name" id="company_name" value="{{ $companyInfo != null ? $companyInfo->company_name : old('company_name') }}">
+                  @error('company_name')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="" class="form-label">New Entrepreneur ?</label>
                   <div aria-label="Basic radio toggle button group">
-
                     <input type="radio" class="btn-check" name="entrepreneur" id="yes" value="yes" {{ $companyInfo != null ? $companyInfo->entrepreneur == 'yes' ? 'checked' : '' : '' }}>
                     <label class="btn btn-outline-primary" for="yes" ><i class="bi bi-check-circle"></i> Yes</label>
                   
@@ -55,17 +61,17 @@
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="trade_license" class="form-label">Trade License No</label>
-                  <input type="text" class="form-control" name="trade_license" id="trade_license" value="{{ $companyInfo != null ? $companyInfo->trade_license : '' }}">
+                  <input type="text" class="form-control" name="trade_license" id="trade_license" value="{{ $companyInfo != null ? $companyInfo->trade_license : old('trade_license') }}">
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="website-url" class="form-label">Website URL</label>
-                  <input type="website_url" class="form-control" name="website_url" id="website-url" value="{{ $companyInfo != null ? $companyInfo->website_url : '' }}">
+                  <input type="website_url" class="form-control" name="website_url" id="website-url" value="{{ $companyInfo != null ? $companyInfo->website_url : old('website_url') }}">
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="industry" class="form-label">Industry Type</label>
-                  <select class="form-control js-example-basic-single" name="industry_id" id="industry">
+                  <select class="form-control js-example-basic-single @error('industry_id') is-invalid @enderror" name="industry_id" id="industry">
                     <option selected disabled>Select Industry Type</option>
                     @foreach ($industries as $industry)
                       <option @isset($companyInfo)
@@ -73,10 +79,15 @@
                       @endisset value="{{ $industry->id }}">{{ $industry->industry_name }}</option>
                     @endforeach
                   </select>
+                  @error('industry_id')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="employee-size" class="form-label">Employee Size</label>
-                  <select class="form-control js-example-basic-single" name="employee_size" id="employee-size">
+                  <select class="form-control js-example-basic-single @error('employee_size') is-invalid @enderror" name="employee_size" id="employee-size">
                     <option selected disabled>Select Company Size</option>
                     <option {{ $companyInfo != null ? $companyInfo->employee_size == '1-15' ? 'selected' : '' : ''}} value="1-15">1-15 Employees</option>
                     <option {{ $companyInfo != null ? $companyInfo->employee_size == '16-30' ? 'selected' : '' : ''}} value="16-30">16-30 Employees</option>
@@ -85,12 +96,17 @@
                     <option {{ $companyInfo != null ? $companyInfo->employee_size == '121-300' ? 'selected' : '' : ''}} value="121-300">121-300 Employees</option>
                     <option {{ $companyInfo != null ? $companyInfo->employee_size == '301-500' ? 'selected' : '' : ''}} value="301-500">301-500 Employees</option>
                   </select>
+                  @error('employee_size')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="district" class="form-label">District</label>
-                  <select class="form-control js-example-basic-single" name="district">
+                  <select class="form-control js-example-basic-single @error('district') is-invalid @enderror" name="district">
                     <option selected disabled>Select District</option>
                     @foreach ($districts as $district)
                       <option @isset($companyInfo)
@@ -98,10 +114,15 @@
                       @endisset value="{{ $district->district_name }}">{{ $district->district_name }}</option>
                     @endforeach
                   </select>
+                  @error('district')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="thana" class="form-label">Thana</label>
-                  <select class="form-control js-example-basic-single" name="thana">
+                  <select class="form-control js-example-basic-single @error('thana') is-invalid @enderror" name="thana">
                     <option selected disabled>Select Thana</option>
                     @foreach ($thanas as $thana)
                       <option @isset($companyInfo)
@@ -109,11 +130,16 @@
                       @endisset value="{{ $thana->thana_name }}">{{ $thana->thana_name }}</option>
                     @endforeach
                   </select>
+                  @error('thana')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
                 </div>
               </div>
               <div class="mb-3">
                 <label for="company_address" class="form-label"><Address></Address> <span class="text-muted">Max 200 chr</span></label>
-                <textarea type="text" class="form-control" name="company_address" id="company_address">{{ $companyInfo != null ? $companyInfo->company_address : '' }}</textarea>
+                <textarea type="text" class="form-control" name="company_address" id="company_address">{{ $companyInfo != null ? $companyInfo->company_address : old('company_address') }}</textarea>
               </div>
               <button type="submit" class="btn site-btn"><i class="fal fa-arrow-circle-up"></i> Update</button>
             </form>

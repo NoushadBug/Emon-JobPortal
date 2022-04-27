@@ -1,5 +1,5 @@
 @extends('layouts.admin.admin-layout')
-@section('title', 'Admin-dashboard')
+@section('title', 'Resume Lists')
 @push('page-css')
   <!-- DataTables -->
   <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
@@ -13,12 +13,12 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-6">
-            <h5 class="mb-0">Thana</h5>
+            <h5 class="mb-0">Resume Lists</h5>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Thana</li>
+              <li class="breadcrumb-item active">Resume Lists</li>
             </ol>
           </div>
         </div>
@@ -32,46 +32,43 @@
           <div class="card">
             <!-- /.card-header -->
             <div class="card-body">
-              <a href="{{ route('admin.thana.create') }}" class="btn btn-info btn-sm mb-3">
-                <i class="fas fa-plus-circle"></i> Create Thana
-              </a>
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>#SL</th>
-                  <th>District Name</th>
-                  <th>Thana Name</th>
-                  <th>Status</th>
+                  <th>User Name</th>
+                  <th>Resume</th>
                   <th>Creation Time</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($thanas as $key=>$thana)
-                <tr>
-                  <td>{{ $key + 1 }}</td>
-                  <td>{{ $thana->district->district_name }}</td>
-                  <td>{{ $thana->thana_name }}</td>
-                  <td>
-                    <input type="checkbox" {{ isset($thana) ? $thana->status == 1 ? 'checked' : '' : '' }} name="status" data-bootstrap-switch data-off-color="danger" data-on-color="info" disabled>
-                  </td>
-                  <td>{{ $thana->created_at->diffForHumans() }}</td>
-                  <td>
-                    <a href="{{ route('admin.thana.edit',$thana->id) }}" class="btn btn-info btn-sm">
-                      <span>Edit</span>
-                      <i class="fas fa-edit"></i>
-                    </a>
-                    <button type="button" onclick="deleteData({{ $thana->id }})"  class="btn btn-danger rounded-right btn-sm">
-                      <span>Delete</span>
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                    <form id="delete-form-{{ $thana->id }}" action="{{ route('admin.thana.destroy', $thana->id) }}" method="POST" style="display: none;">
-                      @csrf
-                      @method('DELETE')
-                    </form>
-                  </td>
-                </tr>
-                @endforeach
+                @if(count($resumes) > 0)
+                  @foreach ($resumes as $key=>$resume)
+                  <tr>
+                    <td>{{ $key + 1 }}</td>
+                    <td>{{ $resume->user->name }}</td>
+                    <td>
+                      <iframe id="iframe-pdf" src="{{ asset('uploads/users/resume/'.$resume->resume) }}" frameborder="0"></iframe>
+                    </td>
+                    <td>{{ $resume->created_at != null ? $resume->created_at->diffForHumans() : '' }}</td>
+                    <td>
+                      <a href="{{ asset('uploads/users/resume/'.$resume->resume) }}" class="btn btn-info btn-sm" target="blank">
+                        <i class="fas fa-eye"></i>
+                        <span>Show/Download Resume</span>
+                      </a>
+                      <button type="button" onclick="deleteData({{ $resume->id }})"  class="btn btn-danger rounded-right btn-sm">
+                        <i class="fas fa-trash-alt"></i>
+                        <span>Delete</span>
+                      </button>
+                      <form id="delete-form-{{ $resume->id }}" action="{{ route('admin.resume.destroy', $resume->id) }}" method="POST" style="display: none;">
+                        @csrf
+                        @method('DELETE')
+                      </form>
+                    </td>
+                  </tr>
+                  @endforeach
+                @endif
               </table>
             </div>
             <!-- /.card-body -->
@@ -85,8 +82,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-
 @endsection
 
 @push('page-js')
@@ -146,12 +141,5 @@
        }
      })
    }
- </script>
- <!-- Bootstrap Switch -->
- <script src="{{ asset('assets/admin/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
- <script>
-   $("input[data-bootstrap-switch]").each(function(){
-     $(this).bootstrapSwitch('state', $(this).prop('checked'));
-   });
  </script>
 @endpush

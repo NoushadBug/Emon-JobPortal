@@ -6,7 +6,7 @@
     padding: 20px 15px;
   }
   .logo i{
-    color: #C2000C;
+    color: #0FAA75;
     font-size: 18px;
   }
   .description{
@@ -96,7 +96,14 @@
                     </div>
                     <div class="col-3">
                       <div class="company-logo">
-                        <img src="{{ $jobPost->job_thumbnail != null ? asset('uploads/job-thumbnail/'. $jobPost->job_thumbnail) : asset('assets/application-default/img/gallery-default.png') }}" alt="job-thumbnail-image" height="70" width="70">
+                        @php
+                          $path = public_path('uploads/job-thumbnail/'. $jobPost->job_thumbnail)
+                        @endphp
+                        @if(File::exists($path))
+                        <img src="{{ $jobPost->job_thumbnail != null ? asset('uploads/job-thumbnail/'. $jobPost->job_thumbnail) : asset('assets/application-default/img/gallery-default.png') }}" alt="{{ $jobPost->job_title }}" height="70" width="70">
+                        @else
+                        <img src="{{ asset('assets/application-default/img/gallery-default.png') }}" alt="{{ $jobPost->job_title }}" height="70" width="70">
+                        @endif
                       </div>
                     </div>
                   </div>
@@ -104,7 +111,17 @@
               </div>
             </div>
             @empty
-              <span>Not Found</span>
+            <div class="col-12">
+              <div class="card empty">
+                <div class="d-flex justify-content-center align-items-center flex-column">
+                  <span>
+                    <i class="fal fa-suitcase"></i>
+                  </span>
+                  <p class="py-1"><b>Sorry No Job Founds</b></p>
+                  <p>Please Try Something else</p>
+                </div>
+              </div>
+            </div>
             @endforelse
           </div>
         </div>

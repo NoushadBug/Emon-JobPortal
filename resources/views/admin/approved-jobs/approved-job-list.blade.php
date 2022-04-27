@@ -1,5 +1,5 @@
 @extends('layouts.admin.admin-layout')
-@section('title', 'Admin-dashboard')
+@section('title', 'Approved Job Lists')
 @push('page-css')
   <!-- DataTables -->
   <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">

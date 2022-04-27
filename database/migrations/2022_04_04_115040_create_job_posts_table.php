@@ -22,7 +22,6 @@ class CreateJobPostsTable extends Migration
             ->cascadeOnDelete();
             $table->string('job_title', 255);
             $table->string('slug', 255)->unique();
-            $table->string('company_name', 200);
             $table->string('company_type', 55)->nullable();
             $table->string('job_location', 255)->nullable();
             $table->date('published_on', 55)->nullable();

@@ -16,7 +16,7 @@
     align-items: center;
   }
   .form-control{
-    border: 1px solid #c2000c;
+    border: 1px solid #002B36;
   }
   .card{
     height: 100%;
@@ -62,8 +62,9 @@
   }
   .hto-job-title i{
     font-size: 23px;
-    color: #C2000C;
+    color: #0FAA75;
   }
+  
 </style>
 @endpush
 
@@ -79,7 +80,7 @@
               @csrf
               <div class="input-group mb-3">
                 <input type="text" class="form-control" id="typed4" placeholder="Search key word :" name="search">
-                <button class="btn contact-us-btn" type="submit" id="button-addon2"><i class="bi bi-search"></i> Search</button>
+                <button class="btn contact-us-btn" type="submit" id="button-addon2"><i class="bi bi-search"></i> Search Job</button>
               </div>
             </form>
             <div class="job-item-wrap">
@@ -112,14 +113,22 @@
             </h6>
             <div class="row">
               @forelse ($categories as $category)
-              <div class="col-md-4 py-1">
-                <a href="{{ route('category', $category->id) }}">
-                  <i class="fal fa-arrow-alt-circle-right"></i>
-                  <span>{{ $category->category_name }}</span>
-                </a>
-              </div>
+                <div class="col-md-4 py-1">
+                  <a href="{{ route('category', $category->id) }}">
+                    <i class="fal fa-arrow-alt-circle-right"></i>
+                    <span>{{ $category->category_name }}</span>
+                    <span>({{ $category->job_post_count }})</span>
+                  </a>
+                </div>
               @empty
-              Not Found
+              <div class="card empty">
+                <div class="d-flex justify-content-center align-items-center flex-column">
+                  <span>
+                    <i class="far fa-list-ul"></i>
+                  </span>
+                  <p class="py-1"><b> No Category Available</b></p>
+                </div>
+              </div>
               @endforelse
             </div>
           </div>
@@ -135,7 +144,7 @@
                 @forelse ($companyGovts as $companyGovt)
                   <li><a href="{{ route('jobpost.details', $companyGovt->id) }}"><i class="fal fa-caret-circle-right"></i>{{ $companyGovt->job_title }}</a></li>
                 @empty
-                  Not Found
+                  <span>No Job Yet</span>
                 @endforelse
               </ul>
               <div class="see-all">
@@ -151,7 +160,7 @@
                 @forelse ($companyPvts as $companyPvt)
                   <li><a href="{{ route('jobpost.details', $companyPvt->id) }}"><i class="fal fa-caret-circle-right"></i>{{ $companyPvt->job_title }}</a></li>
                 @empty
-                  Not Found
+                  <span>No Job Yet</span>
                 @endforelse
               </ul>
               <div class="see-all">
@@ -172,7 +181,7 @@
         <div class="row counters">
           <div class="col-lg-3 col-6 text-center">
             <span><i class="fal fa-suitcase"></i></span>
-            <span data-purecounter-start="0" data-purecounter-end="1232" data-purecounter-duration="1" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="12" data-purecounter-duration="1" class="purecounter"></span>
             <p>Total Jobs</p>
           </div>
           <div class="col-lg-3 col-6 text-center">
@@ -210,7 +219,14 @@
             <a href="{{ route('jobpost.details', $jobPost->id) }}">
               <div class="job-card">
                 <div>
+                  @php
+                    $path = public_path('uploads/job-thumbnail/'. $jobPost->job_thumbnail)
+                  @endphp
+                  @if(File::exists($path))
                   <img src="{{ $jobPost->job_thumbnail != null ? asset('uploads/job-thumbnail/'. $jobPost->job_thumbnail) : asset('assets/application-default/img/gallery-default.png') }}" alt="{{ $jobPost->job_title }}" height="50" width="50">
+                  @else
+                  <img src="{{ asset('assets/application-default/img/gallery-default.png') }}" alt="{{ $jobPost->job_title }}" height="50" width="50">
+                  @endif
                 </div>
                 <div class="ps-2">
                   <p>{{ $jobPost->job_title }}</p>
@@ -221,7 +237,17 @@
           </div>
         </div>
         @empty
-          Not Found
+        <div class="col-12">
+          <div class="card empty ">
+            <div class="d-flex justify-content-center align-items-center flex-column">
+              <span>
+                <i class="fal fa-suitcase"></i>
+              </span>
+              <p class="py-1"><b>Sorry No Job Founds</b></p>
+              <p>Please Try Something else</p>
+            </div>
+          </div>
+        </div>
         @endforelse
       </div>
     </div>

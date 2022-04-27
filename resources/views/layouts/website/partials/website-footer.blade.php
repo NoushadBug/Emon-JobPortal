@@ -42,11 +42,11 @@
         </div>
       </div>
     </div>
-    <div class="container d-md-flex py-4">
-      <div class="me-md-auto text-center text-md-start">
-        <div class="copyright">
+    <div class="px-5 d-md-flex py-4" style="background: #0FF7A8">
+      <div class="me-md-auto text-center text-md-start d-flex align-items-center">
+        <div class="copyright" style="color: white">
           &copy; Copyright <strong>Career Line</strong>. All Rights Reserved
-          | Designed by <a href="https://womenindigtal.net/">careerline</a>
+          | Designed by <a href="https://womenindigtal.net/" style="color: white">careerline</a>
         </div>
       </div>
       <div class="social-links text-center text-md-right pt-3 pt-md-0">

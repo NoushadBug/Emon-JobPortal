@@ -1,5 +1,5 @@
 @extends('layouts.website.website-layouts')
-@section('page-title', '')
+@section('page-title', 'Search By Company Name')
 @push('page-style')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"/>
 <style>
@@ -10,7 +10,7 @@
 .search-menu ul li form > [type=submit] {
   border: 0;
   background: none;
-  color: #8A0000;
+  color: #0FAA75;
   font-weight: 500;
   width: 20px;
   background: #858585;
@@ -248,24 +248,36 @@ body{
               <div class="Org-name O-title">Company Name <span>(No. of Jobs)</span></div>
               <div class="Numojob O-title">No. of Jobs</div>
             </div>
-            @foreach ($companies as $key=>$company)
-            <div class="org-t O-res O-res-O">
-              <div class="Snum">
-                {{ $key + 1 }}
-              </div>
-              <div class="Org-name">
-                <a class="sub_window_new_update" id="ViewAllJobs0" href="{{ route('company.job.posts', $company->id) }}">
-                  {{ $company->company_name }}
-                </a>
-              </div>
-              <div class="Numojob">
-                  {{ count($company->jobPost) }}
-              </div>
+            @if(count($companies) > 0)
+                @foreach ($companies as $key=>$company)
+                <div class="org-t O-res O-res-O">
+                <div class="Snum">
+                    {{ $key + 1 }}
+                </div>
+                <div class="Org-name">
+                    <a class="sub_window_new_update" id="ViewAllJobs0" href="{{ route('company.job.posts', $company->id) }}">
+                    {{ $company->company_name }}
+                    </a>
+                </div>
+                <div class="Numojob">
+                    {{ $company->job_post_count }}
+                </div>
+                </div>
+                @endforeach
+                <p class="pagination px-2">
+                {{ $companies->links() }}
+                </p>
+            @else
+            <div class="card empty">
+                <div class="d-flex justify-content-center align-items-center flex-column">
+                    <span>
+                        <i class="bi bi-building"></i>
+                    </span>
+                    <p class="py-1"><b>Sorry No Company Founds</b></p>
+                    <p>Please Try Something else</p>
+                </div>
             </div>
-            @endforeach
-            <p class="pagination px-2">
-              {{ $companies->links() }}
-            </p>
+            @endif
           </div>
         </div>
         @else
@@ -411,6 +423,7 @@ body{
               <div class="Org-name O-title">Company Name <span>(No. of Jobs)</span></div>
               <div class="Numojob O-title">No. of Jobs</div>
             </div>
+            @if(count($companies) > 0)
             @foreach ($companies as $key=>$company)
             <div class="org-t O-res O-res-O">
               <div class="Snum">
@@ -422,13 +435,24 @@ body{
                 </a>
               </div>
               <div class="Numojob">
-                  {{ count($company->jobPost) }}
+                  {{ $company->job_post_count }}
               </div>
             </div>
             @endforeach
             <p class="pagination px-2">
               {{ $companies->links() }}
             </p>
+            @else
+            <div class="card empty">
+                <div class="d-flex justify-content-center align-items-center flex-column">
+                    <span>
+                        <i class="bi bi-building"></i>
+                    </span>
+                    <p class="py-1"><b>Sorry No Company Founds</b></p>
+                    <p>Please Try Something else</p>
+                </div>
+            </div>
+            @endif
           </div>
         </div>
         @endisset

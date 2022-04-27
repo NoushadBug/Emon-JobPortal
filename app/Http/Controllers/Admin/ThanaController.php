@@ -46,6 +46,7 @@ class ThanaController extends Controller
         Thana::create([
             'thana_name' => $request->thana_name,
             'district_id' => $request->district_id,
+            'status' => $request->filled('status'),
         ]);
         notify()->success('Successfully Saved', 'Success');
         return back();
@@ -88,6 +89,7 @@ class ThanaController extends Controller
         $thana->update([
             'thana_name' => $request->thana_name,
             'district_id' => $request->district_id,
+            'status' => $request->filled('status'),
         ]);
         notify()->success('Successfully Updated', 'Update');
         return back();

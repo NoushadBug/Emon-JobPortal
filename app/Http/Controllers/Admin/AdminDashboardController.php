@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\Contact;
 use App\Models\JobPost;
+use App\Models\Resume;
 use App\Models\Subscriber;
 
 class AdminDashboardController extends Controller
@@ -20,6 +21,7 @@ class AdminDashboardController extends Controller
     {
         $data['companies'] = Company::count();
         $data['jobPosts'] = JobPost::count();
+        $data['resumes'] = Resume::count();
         $data['users'] = User::where('role_id', 3)->count();
         return view('admin.dashboard', $data);
     }

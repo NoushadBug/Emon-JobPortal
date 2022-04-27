@@ -1,6 +1,6 @@
 /* Header Css */
 .top-header{
-    background-color: #C2000C;
+    background-color: #05a76ff5;
 }
 .top-social{
     padding-left: 40px;
@@ -28,17 +28,17 @@
 }
 /* Custom input Field */
 .form-control:focus {
-    border-color: #C2000C;
+    border-color: #0faa75;
     box-shadow: none;
 }
 /* Custom Button */
 .btn-warning:hover {
-    background-color: #C2000C;
-    border-color: #C2000C;
+    background-color: #002B36;
+    border-color: #002B36;
 }
 .btn-check:focus+.btn-warning, .btn-warning:focus {
-    background-color: #C2000C;
-    border-color: #C2000C;
+    background-color: #002B36;
+    border-color: #002B36;
     box-shadow: none;
 }
 .btn-check:active+.btn-warning:focus, .btn-check:checked+.btn-warning:focus, .btn-warning.active:focus, .btn-warning:active:focus, .show>.btn-warning.dropdown-toggle:focus {
@@ -53,12 +53,12 @@
 }
 .login-signup a{
     width: 50%;
-    border: 1px solid #C2000C;
+    border: 1px solid #0faa75;
     margin: 2px;
     font-size: 12px;
 }
 .login-signup .login{
-    background-color: #C2000C;
+    background-color: #0faa75;
     color: white;
 }
 .login-signup .login:hover{
@@ -66,7 +66,7 @@
     color: rgb(37, 37, 37);
 }
 .login-signup .signup:hover{
-    background-color: #C2000C;
+    background-color: #076C4A;
     color: white;
 }
 .account i{
@@ -77,7 +77,7 @@
     font-size: 14px;
 }
 .account-card > a:hover{
-    color: #C2000C;
+    color: #002B36;
 }
 
 
@@ -108,7 +108,7 @@
 
 /* Language Start */
 .language i{
-    color: #C2000C;
+    color: #002B36;
     margin-right: 10px;
     font-size: 20px;
 
@@ -120,7 +120,7 @@
 }
 .language h5{
     text-align: center;
-    background: #C2000C;
+    background: #002B36;
     padding: 10px 0px;
     border-radius: 5px;
     color: white;
@@ -145,3 +145,29 @@
     padding: 60px 15px 60px 20px;
 }
 /* Language Start End */
+
+
+/* Empty Notification */
+.empty{
+    display: flex;
+    justify-content: center;
+    padding: 30px 0px;
+    justify-content: center;
+    margin: 0 auto;
+    background: rgb(15 247 168) !important; 
+}
+.empty i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 30px;
+    background: #0faa75;
+    color: white;
+    width: 100px;
+    height: 100px;
+}
+
+.card{
+    box-shadow: rgb(0 0 0 / 3%) 0px 6px 8px, rgb(0 0 0 / 30%) 0px 1px 2px;
+}

@@ -22,16 +22,13 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
     use AuthenticatesUsers;
-
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
     protected $redirectTo;
-
     /**
      * Create a new controller instance.
      *
@@ -49,34 +46,4 @@ class LoginController extends Controller
         }
         $this->middleware('guest')->except('logout');
     }
-
-    // Socialite Redirect
-    // public function redirectToProvider($provider)
-    // {
-    //     return Socialite::driver($provider)->redirect();
-    // }
-    // Handle Provider Callback
-    // public function handleProviderCallback($provider)
-    // {
-    //     $user = Socialite::driver($provider)->user();
-    //     // Find existing user.
-    //     $existingUser = User::whereEmail($user->getEmail())->first();
-    //     if ($existingUser)
-    //     {
-    //         Auth::login($existingUser);
-    //     } else {
-    //         // Create new user.
-    //         $newUser = User::create([
-    //             'role_id' => 2,
-    //             'name' => $user->getName(),
-    //             'email' => $user->getEmail(),
-    //             'status' => false,
-    //             'delatable' => true,
-    //         ]);
-    //         Auth::login($newUser);
-    //     }
-    //     notify()->success('You have successfully logged in with '.ucfirst($provider).'!','Success');
-    //     return redirect($this->redirectPath());
-
-    // }
 }

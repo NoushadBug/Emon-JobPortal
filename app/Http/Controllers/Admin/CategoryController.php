@@ -46,6 +46,7 @@ class CategoryController extends Controller
         Category::create([
             'category_name' => $request->category_name,
             'slug' => $slug,
+            'status' => $request->filled('status'),
         ]);
         notify()->success('Successfully Saved', 'Success');
         return back();
@@ -88,6 +89,7 @@ class CategoryController extends Controller
         $category->update([
             'category_name' => $request->category_name,
             'slug' => $slug,
+            'status' => $request->filled('status'),
         ]);
         notify()->success('Successfully Updated', 'Update');
         return back();

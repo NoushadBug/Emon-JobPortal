@@ -14,7 +14,7 @@
     justify-content: center;
     align-items: center;
     padding: 30px 0px;
-    border-top: 3px solid #002B36;
+    border-top: 3px solid #0FAA75;
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
   }
@@ -34,33 +34,16 @@
               <thead>
               <tr>
                 <th>#SL</th>
-                <th>Job Title</th>
-                <th>Action</th>
+                <th>Name</th>
+                <th>Email</th>
               </tr>
               </thead>
               <tbody>
-              @foreach ($allPostedJobs as $key=>$post)
+              @foreach ($users as $key=>$user)
               <tr>
                 <td>{{ $key + 1 }}</td>
-                <td>{{ $post->job_title }}</td>
-                <td>
-                  <a href="{{ route('company.edit.job.post',$post->id) }}" class="btn btn-primary btn-sm" target="blank">
-                    <i class="fas fa-eye"></i>
-                    <span>Edit</span>
-                  </a>
-                  <a href="{{ route('jobpost.details',$post->id) }}" class="btn btn-info btn-sm" target="blank">
-                    <i class="fas fa-eye"></i>
-                    <span>Show Details</span>
-                  </a>
-                  <button type="button" onclick="deleteData({{ $post->id }})"  class="btn btn-danger rounded-right btn-sm">
-                    <i class="fas fa-trash-alt"></i>
-                    <span>Delete</span>
-                  </button>
-                  <form id="delete-form-{{ $post->id }}" action="{{ route('company.delete.job.post', $post->id) }}" method="POST" style="display: none;">
-                    @csrf
-                    @method('DELETE')
-                  </form>
-                </td>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->email }}</td>
               </tr>
               @endforeach
             </table>

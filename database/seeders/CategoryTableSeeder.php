@@ -18,18 +18,22 @@ class CategoryTableSeeder extends Seeder
         Category::create([
             'category_name' => 'Accounting/Finance',
             'slug' => 'accounting-finance',
+            'status' => 1,
         ]);
         Category::create([
             'category_name' => 'Bank/Non-Bank',
             'slug' => 'bank-non-bank',
+            'status' => 1,
         ]);
         Category::create([
             'category_name' => 'Commercial',
             'slug' => 'commercial',
+            'status' => 1,
         ]);
         Category::create([
             'category_name' => 'Education',
             'slug' => 'education',
+            'status' => 1,
         ]);
     }
 }

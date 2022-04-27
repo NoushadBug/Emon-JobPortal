@@ -1,5 +1,7 @@
 @extends('layouts.website.website-layouts')
-@section('page-title', '')
+@section('page-title')
+{{ Auth::user()->name }} | Profile Edit
+@endsection
 @push('page-style')
 <link rel="stylesheet" href="{{ asset('assets/website/css/company-user-dashboard.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">

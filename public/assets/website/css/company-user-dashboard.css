@@ -90,7 +90,7 @@ margin-left: 10px;}
   padding: 10px 30px;
   border-radius: 7px;
   cursor: pointer;
-  border-left: 3px solid #C2000C;
+  border-left: 3px solid #0faa75;
 }
 .element-items i {
   padding-right: 10px;
@@ -101,35 +101,35 @@ margin-left: 10px;}
   top: -63px;
 }
 .update-avater i{
-  color: #77090A;
+  color: #002B36;
   font-size: 25px;
   cursor: pointer;
 }
 .form-control{
-  border: 1px solid #C2000C;
+  border: 1px solid #0fa975;
 }
 input{
-  box-shadow: 2px 1px #C2000C;
+  box-shadow: 2px 1px #0faa75;
 }
 .form-control:focus {
-  box-shadow: 2px 1px #C2000C;
+  box-shadow: 2px 1px #0faa75;
 }
 
 .btn-check:active+.btn-outline-primary, .btn-check:checked+.btn-outline-primary, .btn-outline-primary.active, .btn-outline-primary.dropdown-toggle.show, .btn-outline-primary:active {
   color: #fff;
-  background-color: #C1000C;
-  border-color: #C1000C;
+  background-color: #002B36;
+  border-color: #0faa75;
 }
 .btn-outline-primary {
-  color: #C2000C;
-  border-color: #C2000C;
+  color: #0faa75;
+  border-color: #0faa75;
 }
 .btn-check:active+.btn-outline-primary:focus, .btn-check:checked+.btn-outline-primary:focus, .btn-outline-primary.active:focus, .btn-outline-primary.dropdown-toggle.show:focus, .btn-outline-primary:active:focus {
   box-shadow: none !important;
 }
 .btn-check:active+.btn-outline-primary, .btn-check:checked+.btn-outline-primary, .btn-outline-primary.active, .btn-outline-primary.dropdown-toggle.show, .btn-outline-primary:active {
   color: #fff;
-  background-color: #C2000C;
+  background-color: #0faa75;
   border-color: none !important;
 }
 .btn-check:focus+.btn-outline-primary, .btn-outline-primary:focus {
@@ -137,10 +137,17 @@ input{
 }
 .btn-outline-primary:hover {
   color: #fff;
-  background-color: #C2000C;
-  border-color: #C2000C;
+  background-color: #0faa75;
+  border-color: #0faa75;
 }
 /* avater css end */
+
+.footer-newsletter .input-group input {
+  box-shadow: none;
+
+}
+
+
 
 /* Responsive */
 @media only screen and (min-width: 768px) and (max-width: 991.98px) {  
@@ -151,3 +158,4 @@ input{
 }
 @media only screen and (min-width: 310px) and (max-width: 449.98px) {  
 }
+

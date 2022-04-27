@@ -51,6 +51,7 @@
                       </span>
                     @enderror
                   </div>
+                  <input type="checkbox" {{ isset($district) ? $district->status == 1 ? 'checked' : '' : '' }} name="status" data-bootstrap-switch data-off-color="danger" data-on-color="info">
                 </div>
                 <div class="modal-footer justify-content-between">
                   @isset($district)
@@ -81,5 +82,11 @@
 @endsection
 
 @push('page-js')
-  
+  <!-- Bootstrap Switch -->
+<script src="{{ asset('assets/admin/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+<script>
+   $("input[data-bootstrap-switch]").each(function(){
+      $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    });
+</script>
 @endpush

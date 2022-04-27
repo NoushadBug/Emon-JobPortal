@@ -1,5 +1,5 @@
 @extends('layouts.admin.admin-layouts')
-@section('page-title','Admin-Dashboard | LaraStarter')
+@section('page-title','Profile')
 @push('page-css')
 <!-- form Uploads -->
 <link href="{{ asset('assets/backend/plugins/fileuploads/css/dropify.min.css') }}" rel="stylesheet" type="text/css" />

@@ -40,6 +40,7 @@
                 <tr>
                   <th>#SL</th>
                   <th>Industry Name</th>
+                  <th>Status</th>
                   <th>Creation Time</th>
                   <th>Action</th>
                 </tr>
@@ -49,6 +50,9 @@
                 <tr>
                   <td>{{ $key + 1 }}</td>
                   <td>{{ $industry->industry_name }}</td>
+                  <td>
+                    <input type="checkbox" {{ isset($industry) ? $industry->status == 1 ? 'checked' : '' : '' }} name="status" data-bootstrap-switch data-off-color="danger" data-on-color="info" disabled>
+                  </td>
                   <td>{{ $industry->created_at->diffForHumans() }}</td>
                   <td>
                     <a href="{{ route('admin.industry.edit',$industry->id) }}" class="btn btn-info btn-sm">
@@ -140,5 +144,12 @@
        }
      })
    }
+ </script>
+ <!-- Bootstrap Switch -->
+ <script src="{{ asset('assets/admin/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+ <script>
+   $("input[data-bootstrap-switch]").each(function(){
+     $(this).bootstrapSwitch('state', $(this).prop('checked'));
+   });
  </script>
 @endpush

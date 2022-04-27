@@ -1,12 +1,12 @@
 @extends('layouts.website.website-layouts')
-@section('page-title', 'Category-Details')
+@section('page-title', 'Companies Job Post')
 @push('page-style')
 <style>
   .card{
     padding: 20px 15px;
   }
   .logo i{
-    color: #C2000C;
+    color: #0FAA75;
     font-size: 18px;
   }
   .description{
@@ -42,10 +42,11 @@
       <div class="col-12">
         <div class="search-bar mb-3">
           <form action="{{ route('job.search') }}" method="GET">
-          <div class="input-group">
-            <input type="text" class="form-control" id="typed4" placeholder="Search key word :" name="search">
-            <button class="btn contact-us-btn" type="button" id="button-addon2"><i class="bi bi-search"></i> Search Job</button>
-          </div>
+            @csrf
+            <div class="input-group">
+              <input type="text" class="form-control" id="typed4" placeholder="Search key word :" name="search">
+              <button class="btn contact-us-btn" type="submit" id="button-addon2"><i class="bi bi-search"></i> Search Job</button>
+            </div>
           </form>
         </div>
         <div class="search-body">
@@ -97,7 +98,14 @@
                     </div>
                     <div class="col-3">
                       <div class="company-logo">
-                        <img src="{{ $jobPost->job_thumbnail != null ? asset('uploads/job-thumbnail/'. $jobPost->job_thumbnail) : asset('assets/application-default/img/gallery-default.png') }}" alt="job-thumbnail-image" height="70" width="70">
+                        @php
+                          $path = public_path('uploads/job-thumbnail/'. $jobPost->job_thumbnail)
+                        @endphp
+                        @if(File::exists($path))
+                        <img src="{{ $jobPost->job_thumbnail != null ? asset('uploads/job-thumbnail/'. $jobPost->job_thumbnail) : asset('assets/application-default/img/gallery-default.png') }}" alt="{{ $jobPost->job_title }}" height="70" width="70">
+                        @else
+                        <img src="{{ asset('assets/application-default/img/gallery-default.png') }}" alt="{{ $jobPost->job_title }}" height="70" width="70">
+                        @endif
                       </div>
                     </div>
                   </div>
@@ -107,7 +115,17 @@
             @endforeach
           </div>
           @else
-          No Job Found
+          <div class="col-12">
+            <div class="card empty">
+              <div class="d-flex justify-content-center align-items-center flex-column">
+                <span>
+                  <i class="fal fa-suitcase"></i>
+                </span>
+                <p class="py-1"><b>Sorry No Job Founds</b></p>
+                <p>Please Try Something else</p>
+              </div>
+            </div>
+          </div>
           @endif
         </div>
       </div>

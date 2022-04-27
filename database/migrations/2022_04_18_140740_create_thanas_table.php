@@ -20,7 +20,7 @@ class CreateThanasTable extends Migration
             ->cascadeOnUpdate()
             ->cascadeOnDelete();
             $table->string('thana_name', 55)->nullable();
-            $table->boolean('status')->nullable();
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

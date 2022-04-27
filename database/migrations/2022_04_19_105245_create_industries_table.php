@@ -16,7 +16,7 @@ class CreateIndustriesTable extends Migration
         Schema::create('industries', function (Blueprint $table) {
             $table->id();
             $table->string('industry_name', 200)->nullable();
-            $table->boolean('status')->nullable();
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

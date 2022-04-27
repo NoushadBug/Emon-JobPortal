@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Industry;
+use App\Models\Resume;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 
-class IndustryController extends Controller
+class ResumeContrller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,8 @@ class IndustryController extends Controller
      */
     public function index()
     {
-        $industries = Industry::latest()->get();
-        return view('admin.site-basic-info.industry-list', compact('industries'));
+        $resumes = Resume::latest()->get();
+        return view('admin.candidate-resume.resume-lists', compact('resumes'));
     }
 
     /**
@@ -26,7 +27,7 @@ class IndustryController extends Controller
      */
     public function create()
     {
-        return view('admin.site-basic-info.industry-create-edit');
+        //
     }
 
     /**
@@ -37,15 +38,7 @@ class IndustryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'industry_name' => 'required|unique:industries,industry_name'
-        ]);
-        Industry::create([
-            'industry_name' => $request->industry_name,
-            'status' => $request->filled('status'),
-        ]);
-        notify()->success('Successfully Saved', 'Success');
-        return back();
+        //
     }
 
     /**
@@ -67,8 +60,7 @@ class IndustryController extends Controller
      */
     public function edit($id)
     {
-        $industry = Industry::findOrFail($id);
-        return view('admin.site-basic-info.industry-create-edit', compact('industry'));
+        //
     }
 
     /**
@@ -80,13 +72,7 @@ class IndustryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $industry = Industry::findOrFail($id);
-        $industry->update([
-            'industry_name' => $request->industry_name,
-            'status' => $request->filled('status'),
-        ]);
-        notify()->success('Successfully Updated', 'Update');
-        return back();
+        //
     }
 
     /**
@@ -97,9 +83,14 @@ class IndustryController extends Controller
      */
     public function destroy($id)
     {
-        $industry = Industry::findOrFail($id);
-        $industry->delete();
-        notify()->success('Successfully Deleted', 'Delete');
+        $resume = Resume::findOrFail($id);
+        $resume_path = public_path('uploads/users/resume/' . $resume->resume);
+        // Delete old thumbnail, If the thumbnail has
+        if (File::exists($resume_path)) {
+            File::delete($resume_path);
+        }
+        $resume->delete();
+        notify()->success('Deleted', 'Successfully Deleted');
         return back();
     }
 }

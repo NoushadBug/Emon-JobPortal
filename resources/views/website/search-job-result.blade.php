@@ -6,11 +6,8 @@
     padding: 20px 15px;
   }
   .logo i{
-    color: #C2000C;
+    color: #0FAA75;
     font-size: 18px;
-  }
-  .description{
-
   }
   .description .item-i{
     width: 30px;
@@ -26,9 +23,6 @@
   .card:hover{
     box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   }
-  a{
-    color: 
-  }
   .company-logo img{
     object-fit: cover;
   }
@@ -42,9 +36,10 @@
       <div class="col-12">
         <div class="search-bar mb-3">
           <form action="{{ route('job.search') }}" method="GET">
+            @csrf
             <div class="input-group">
               <input type="text" class="form-control" id="typed4" placeholder="Search key word :" name="search">
-              <button class="btn contact-us-btn" type="button" id="button-addon2"><i class="bi bi-search"></i> Search Job</button>
+              <button class="btn contact-us-btn" type="submit" id="button-addon2"><i class="bi bi-search"></i> Search Job</button>
             </div>
           </form>
         </div>
@@ -95,7 +90,14 @@
                     </div>
                     <div class="col-3">
                       <div class="company-logo">
-                        <img src="{{ $result->job_thumbnail != null ? asset('uploads/job-thumbnail/'. $result->job_thumbnail) : asset('assets/application-default/img/gallery-default.png') }}" alt="job-thumbnail-image" height="70" width="70">
+                        @php
+                          $path = public_path('uploads/job-thumbnail/'. $result->job_thumbnail)
+                        @endphp
+                        @if(File::exists($path))
+                        <img src="{{ $result->job_thumbnail != null ? asset('uploads/job-thumbnail/'. $result->job_thumbnail) : asset('assets/application-default/img/gallery-default.png') }}" alt="{{ $result->job_title }}" height="70" width="70">
+                        @else
+                        <img src="{{ asset('assets/application-default/img/gallery-default.png') }}" alt="{{ $result->job_title }}" height="70" width="70">
+                        @endif
                       </div>
                     </div>
                   </div>
@@ -103,7 +105,17 @@
               </div>
             </div>
             @empty
-              <span>Not Found</span>
+            <div class="col-12">
+              <div class="card empty">
+                <div class="d-flex justify-content-center align-items-center flex-column">
+                  <span>
+                    <i class="fal fa-suitcase"></i>
+                  </span>
+                  <p class="py-1"><b>Sorry No Job Founds</b></p>
+                  <p>Please Try Something else</p>
+                </div>
+              </div>
+            </div>
             @endforelse
           </div>
         </div>

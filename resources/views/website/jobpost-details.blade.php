@@ -1,12 +1,12 @@
 @extends('layouts.website.website-layouts')
-@section('page-title', 'Category-Details')
+@section('page-title', 'Job Post Details')
 @push('page-style')
 <style>
   .card{
     /* padding: 20px 15px; */
   }
   .card-title{
-    background: #C2000C;
+    background: #0FAA75;
     padding: 6px 10px;
     color: white;
     border-top-left-radius: 5px;
@@ -16,11 +16,8 @@
     padding: 6px 12px 15px 12px;
   }
   .logo i{
-    color: #C2000C;
+    color: #0FAA75;
     font-size: 18px;
-  }
-  .description{
-
   }
   .description .item-i{
     width: 30px;
@@ -30,14 +27,11 @@
     padding: 20px;
     border-radius: 5px;
   }
-  body{
+  /* body{
     background: rgb(226, 226, 226);
-  }
+  } */
   .card:hover{
     box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  }
-  a{
-    color: 
   }
   .company-logo img{
     object-fit: cover;

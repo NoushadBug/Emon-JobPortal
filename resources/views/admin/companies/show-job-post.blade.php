@@ -1,5 +1,5 @@
 @extends('layouts.admin.admin-layout')
-@section('title', 'Admin-Dashboard')
+@section('title', 'Show Job')
 @push('page-css')
   <style>
     .report-bg {

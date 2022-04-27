@@ -19,6 +19,6 @@ return [
     'closeOnClick' => true,
     'timeout' => 5000,
     'drag' => true,
-    'position' => "bottomRight", //bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter or center.
+    'position' => "bottomLeft", //bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter or center.
     'progressBar' => true,
 ];

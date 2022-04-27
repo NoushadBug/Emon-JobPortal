@@ -23,7 +23,6 @@ class CompanyRegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
     public function __construct()
     {
         if (Auth::check() && Auth::user()->role->id == 1)
@@ -36,13 +35,11 @@ class CompanyRegisterController extends Controller
         }
         $this->middleware('guest');
     }
-
     // View To Company Regester Page
     public function companyRegister()
     {
         return view('auth.company-register');
     }
-
     // Company Registration Create
     public function companyRegisterCreate(Request $request)
     {
@@ -60,4 +57,5 @@ class CompanyRegisterController extends Controller
         ]);
         return redirect()->route('company.dashboard');
     }
+
 }

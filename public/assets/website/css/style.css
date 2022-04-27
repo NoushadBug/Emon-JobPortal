@@ -3,9 +3,9 @@
 * Template URL: 
 * Author: Azhar Raihan
 * License: 
-* Logo Color #77090A
-* Old Color #C2000C
-* Old Hover Color #C2000C
+* Logo Color #002B36
+* Old Color #002B36
+* Old Hover Color #002B36
 */
 /*--------------------------------------------------------------
 # Fonts
@@ -39,6 +39,7 @@
   margin: 0;
 }
 body {
+  background: #F8F6F8;
   font-family: AvenirNextLTPro-Medium;
   color: #444444;
 }
@@ -47,11 +48,11 @@ p{
   margin: 0;
 }
 /* a {
-  color: #C2000C;
+  color: #002B36;
   text-decoration: none;
 }
 a:hover {
-  color: #77090A;
+  color: #002B36;
   text-decoration: none;
 } */
 a{
@@ -59,7 +60,7 @@ a{
   text-decoration: none;
 }
 a:hover{
-  color: #77090A;
+  color: #0b4a5a;
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: AvenirNextLTPro-Medium;
@@ -80,7 +81,7 @@ hr{
   right: 15px;
   bottom: 15px;
   z-index: 996;
-  background: #C2000C;
+  background: #0faa75;
   width: 40px;
   height: 40px;
   border-radius: 50px;
@@ -92,7 +93,7 @@ hr{
   line-height: 0;
 }
 .back-to-top:hover {
-  background: #77090A;
+  background: #002B36;
   color: #fff;
 }
 .back-to-top.active {
@@ -117,7 +118,7 @@ hr{
   position: fixed;
   top: calc(50% - 30px);
   left: calc(50% - 30px);
-  border: 6px solid #C2000C;
+  border: 6px solid #002B36;
   border-top-color: #fff;
   border-bottom-color: #fff;
   border-radius: 50%;
@@ -171,7 +172,7 @@ hr{
   font-family: AvenirNextLTPro-Medium;
 }
 #header .logo a {
-  color: #C2000C;
+  color: #002B36;
 }
 #header .logo img {
   max-height: 40px;
@@ -181,7 +182,7 @@ hr{
 */
 .contact-us-btn {
   margin-left: 22px;
-  background: #C2000C;
+  background: #0faa75;
   color: #fff;
   border-radius: 4px;
   padding: 8px 15px;
@@ -191,7 +192,7 @@ hr{
   display: inline-block;
 }
 .contact-us-btn:hover {
-  background: #77090A;
+  background: #076c4a;
   color: #fff;
 }
 @media (max-width: 768px) {
@@ -201,7 +202,7 @@ hr{
   }
 }
 .site-btn {
-  background: #C2000C;
+  background: #0faa75;
   color: #fff;
   border-radius: 4px;
   padding: 8px 15px;
@@ -211,7 +212,7 @@ hr{
   display: inline-block;
 }
 .site-btn:hover {
-  background: #77090A;
+  background: #076C4A;
   color: #fff;
 }
 /*--------------------------------------------------------------
@@ -252,7 +253,7 @@ hr{
   margin-right: 6px;
 }
 .navbar a:hover, .navbar .active, .navbar .active:focus, .navbar li:hover > a {
-  color: #C2000C;
+  color: #002B36;
 }
 .navbar .dropdown ul {
   display: block;
@@ -282,7 +283,7 @@ hr{
   font-size: 12px;
 }
 .navbar .dropdown ul a:hover, .navbar .dropdown ul .active:hover, .navbar .dropdown ul li:hover > a {
-  color: #C2000C;
+  color: #002B36;
 }
 .navbar .dropdown:hover > ul {
   opacity: 1;
@@ -365,7 +366,7 @@ hr{
   color: #37423b;
 }
 .navbar-mobile a:hover, .navbar-mobile .active, .navbar-mobile li:hover > a {
-  color: #C2000C;
+  color: #002B36;
 }
 .navbar-mobile .getstarted {
   margin: 15px;
@@ -391,7 +392,7 @@ hr{
   font-size: 12px;
 }
 .navbar-mobile .dropdown ul a:hover, .navbar-mobile .dropdown ul .active:hover, .navbar-mobile .dropdown ul li:hover > a {
-  color: #C2000C;
+  color: #002B36;
 }
 .navbar-mobile .dropdown > .dropdown-active {
   display: block;
@@ -405,7 +406,7 @@ hr{
   width: 300px;
 }
 .account-card .acc-mng-1{
-  background-color: #C2000C;
+  background-color: #0faa75;
   height: 80px;
   position: relative;
 }
@@ -432,14 +433,14 @@ hr{
   padding-bottom: 3px;
 }
 .account-card .credentials a:hover{
-  color: #77090A;
+  color: #002B36;
   transition: 0.5s;
 }
 .account-card .notification{
   position: relative;
 }
 .account-card .blob {
-  background: #C2000C;
+  background: #0faa75;
   color: rgb(255, 255, 255);
   border-radius: 50%;
   height: 13px;
@@ -492,7 +493,7 @@ hr{
 .login-icon {
   width: 40px;
   height: 40px;
-  background: #C2000C;
+  background: #0faa75;
   color: white;
   display: flex;
   justify-content: center;
@@ -529,7 +530,7 @@ section {
   display: block;
   width: 40px;
   height: 3px;
-  background: #C2000C;
+  background: #002B36;
   bottom: 0;
   left: calc(50% - 20px);
 }
@@ -546,7 +547,7 @@ section {
 .breadcrumbs {
   margin-top: 73px;
   text-align: center;
-  background: #C2000C;
+  background: #002B36;
   padding: 30px 0;
   color: #fff;
 }
@@ -629,7 +630,7 @@ section {
 }
 #footer .footer-top .footer-links ul i {
   padding-right: 2px;
-  color: #C2000C;
+  color: #002B36;
   font-size: 18px;
   line-height: 1;
 }
@@ -649,7 +650,7 @@ section {
 }
 #footer .footer-top .footer-links ul a:hover {
   text-decoration: none;
-  color: #C2000C;
+  color: #002B36;
 }
 #footer .footer-newsletter {
   font-size: 15px;
@@ -684,30 +685,30 @@ section {
   background: none;
   font-size: 16px;
   padding: 0 20px 2px 20px;
-  background: #C2000C;
+  background: #002B36;
   color: #fff;
   transition: 0.3s;
   border-radius: 50px;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
 }
 #footer .footer-newsletter form input[type="submit"]:hover {
-  background: #77090A;
+  background: #002B36;
 }
 #footer .credits {
   padding-top: 5px;
   font-size: 13px;
 }
 #footer .credits a {
-  color: #C2000C;
+  color: #002B36;
   transition: 0.3s;
 }
 #footer .credits a:hover {
-  color: #C2000C;
+  color: #002B36;
 }
 #footer .social-links a {
   font-size: 18px;
   display: inline-block;
-  background: #C2000C;
+  background: #0faa75;
   color: #fff;
   line-height: 1;
   padding: 8px 0;
@@ -719,7 +720,7 @@ section {
   transition: 0.3s;
 }
 #footer .social-links a:hover {
-  background: #77090A;
+  background: #057a52;
   color: #fff;
   text-decoration: none;
 }

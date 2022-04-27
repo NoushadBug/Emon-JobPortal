@@ -1,5 +1,5 @@
 @extends('layouts.admin.admin-layout')
-@section('title', 'Admin-Dashboard')
+@section('title', 'Company Posted Jobs')
 @push('page-css')
   <style>
     .info-box-icon img{

@@ -1,5 +1,5 @@
 @extends('layouts.admin.admin-layout')
-@section('title', 'Dashboard')
+@section('title', 'Show Company Details')
 @push('page-css')
 @endpush
 

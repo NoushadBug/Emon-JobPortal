@@ -41,6 +41,7 @@
                   <th>#SL</th>
                   <th>Category Name</th>
                   <th>Category Slug</th>
+                  <th>Status</th>
                   <th>Creation Time</th>
                   <th>Action</th>
                 </tr>
@@ -51,6 +52,9 @@
                   <td>{{ $key + 1 }}</td>
                   <td>{{ $category->category_name }}</td>
                   <td>{{ $category->slug }}</td>
+                  <td>
+                    <input type="checkbox" {{ isset($category) ? $category->status == 1 ? 'checked' : '' : '' }} name="status" data-bootstrap-switch data-off-color="danger" data-on-color="info" disabled>
+                  </td>
                   <td>{{ $category->created_at->diffForHumans() }}</td>
                   <td>
                     <a href="{{ route('admin.category.edit',$category->id) }}" class="btn btn-info btn-sm">
@@ -142,5 +146,12 @@
     }
     })
   }
+</script>
+<!-- Bootstrap Switch -->
+<script src="{{ asset('assets/admin/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+<script>
+  $("input[data-bootstrap-switch]").each(function(){
+    $(this).bootstrapSwitch('state', $(this).prop('checked'));
+  });
 </script>
 @endpush

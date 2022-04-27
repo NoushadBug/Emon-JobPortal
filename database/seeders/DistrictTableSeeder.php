@@ -16,9 +16,11 @@ class DistrictTableSeeder extends Seeder
     {
         District::create([
             'district_name' => 'Feni',
+            'status' => 1,
         ]);
         District::create([
             'district_name' => 'Chattagram',
+            'status' => 1,
         ]);
     }
 }

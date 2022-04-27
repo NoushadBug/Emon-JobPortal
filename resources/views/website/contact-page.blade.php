@@ -1,5 +1,5 @@
 @extends('layouts.website.website-layouts')
-@section('page-title', '')
+@section('page-title', 'Contact Us')
 @push('page-style')
 <style>
   .contact-section ul  li{
@@ -88,8 +88,6 @@
     </div>
   </div>
 </section>
-
-
 @endsection
 @push('page-script')
 @endpush

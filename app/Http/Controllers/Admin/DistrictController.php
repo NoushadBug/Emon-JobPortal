@@ -42,6 +42,7 @@ class DistrictController extends Controller
         ]);
         District::create([
             'district_name' => $request->district_name,
+            'status' => $request->filled('status'),
         ]);
         notify()->success('Successfully Saved', 'Success');
         return back();
@@ -82,6 +83,7 @@ class DistrictController extends Controller
         $district = District::findOrFail($id);
         $district->update([
             'district_name' => $request->district_name,
+            'status' => $request->filled('status'),
         ]);
         notify()->success('Successfully Updated', 'Update');
         return back();
