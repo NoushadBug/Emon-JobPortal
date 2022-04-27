@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"/>
 <style>
 .search-menu{
-  background: rgb(204, 204, 204);
+  background: #0FF7A8;
   padding: 10px;
 }
 .search-menu ul li form > [type=submit] {
@@ -13,7 +13,7 @@
   color: #0FAA75;
   font-weight: 500;
   width: 20px;
-  background: #858585;
+  background: #098158;
   color: white;
   border-radius: 3px;
   font-size: 13px;
@@ -67,7 +67,7 @@
 }
 .O-title {
   font-weight: bold;
-  background-color: #babdc0;
+  background-color: #0ff7a8;
   /* color: #545454; */
   color: #4c4c4c;
 }
