@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\Subscriber;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Resume;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\ApplyJobNotificationToCompany;
@@ -24,26 +25,26 @@ class FrontendController extends Controller
             return $query->where('status', 1)->where('is_published', 1);
         })->where('status', 1)->orderBy('category_name')->take(36)->get();
 
-        $data['jobPosts'] = JobPost::where('status',1)
-        ->whereHas('category', function($query){
+        $data['jobPosts'] = JobPost::where('status', 1)
+            ->whereHas('category', function ($query) {
+                return $query->where('status', 1);
+            })
+            ->where('is_published', 1)
+            ->latest()->take(40)->get();
+
+        $data['companyGovts'] = JobPost::where([['company_type', 'GOVT'], ['status', 1], ['is_published', 1]])->whereHas('category', function ($query) {
             return $query->where('status', 1);
         })
-        ->where('is_published',1)
-        ->latest()->take(40)->get();
+            ->latest()->take(4)->get();
 
-        $data['companyGovts'] = JobPost::where([['company_type','GOVT'],['status',1],['is_published',1]])->whereHas('category', function($query){
-            return $query->where('status', 1);
-        })
-        ->latest()->take(4)->get();
-
-        $data['companyPvts'] = JobPost::where([['company_type','PVT'],['status',1],['is_published',1]])->whereHas('category', function($query){
+        $data['companyPvts'] = JobPost::where([['company_type', 'PVT'], ['status', 1], ['is_published', 1]])->whereHas('category', function ($query) {
             return $query->where('status', 1);
         })->latest()->take(4)->get();
 
         $data['companyCount'] = Company::count();
 
-        $data['jobPostCount'] = JobPost::where('status', 1)->where('is_published',1)->count();
-        
+        $data['jobPostCount'] = JobPost::where('status', 1)->where('is_published', 1)->count();
+
         return view('website.index', $data);
     }
     // Government Company
@@ -51,28 +52,27 @@ class FrontendController extends Controller
     {
         $data['companyTypeName'] = 'Government';
         $data['companyType'] = JobPost::with('company')
-        ->whereHas('category', function($query){
-            return $query->where('status', 1);
-        })
-        ->where('company_type', 'GOVT')
-        ->where('status',1)
-        ->where('is_published',1)
-        ->latest()->get();
+            ->whereHas('category', function ($query) {
+                return $query->where('status', 1);
+            })
+            ->where('company_type', 'GOVT')
+            ->where('status', 1)
+            ->where('is_published', 1)
+            ->latest()->get();
         return view('website.company-type', $data);
-
     }
     // Private Company
     public function privateCompany()
     {
         $data['companyTypeName'] = 'Private';
         $data['companyType'] = JobPost::with('company')
-        ->whereHas('category', function($query){
-            return $query->where('status', 1);
-        })
-        ->where('company_type', 'PVT')
-        ->where('status',1)
-        ->where('is_published',1)
-        ->latest()->get();
+            ->whereHas('category', function ($query) {
+                return $query->where('status', 1);
+            })
+            ->where('company_type', 'PVT')
+            ->where('status', 1)
+            ->where('is_published', 1)
+            ->latest()->get();
         return view('website.company-type', $data);
     }
 
@@ -85,7 +85,7 @@ class FrontendController extends Controller
     // Contact Send
     public function contactSend(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'name' => 'required|max:55',
             'email' => 'required|email|max:55',
             'subject' => 'required|max:255',
@@ -116,30 +116,70 @@ class FrontendController extends Controller
     public function category($id)
     {
         $jobPosts = JobPost::where('category_id', $id)
-        ->where('status', 1)
-        ->where('is_published', 1)
-        ->latest()->get();
+            ->where('status', 1)
+            ->where('is_published', 1)
+            ->latest()->get();
         return view('website.category-details', compact('jobPosts'));
     }
     // Job Post Details
-    public function jobPostDetails($id)
+    public function jobPostDetails($id, Request $request)
     {
-        $jobPost = JobPost::with('company')->where('id',$id)->first();
-        return view('website.jobpost-details', compact('jobPost'));
+        $view = 'default';
+        if ($request->has('notified') && $request->notified == true) {
+            $job_id = $id;
+            $user_id = Auth::user()->id;
+            $ApplyJob = ApplyJob::where([['job_id', $job_id], ['user_id', $user_id]])->first();
+            $ApplyJob->update([
+                'selection_status' => 3,
+            ]);
+        }
+
+        $isApplied = ApplyJob::where('job_id', $id)
+            ->where('user_id', Auth::user()->id)->first();
+        if ($isApplied) {
+            $view = 'applied';
+        }
+
+        $isSelected = ApplyJob::where('job_id', $id)
+            ->where('user_id', Auth::user()->id)
+            ->where('selection_status', 1)
+            ->orWhere('selection_status', 3)->first();
+        if ($isSelected) {
+            $view = 'selected';
+        }
+
+        $vacancy = count(ApplyJob::where('job_id', $id)
+            ->where('selection_status', 1)->get()->toArray());
+        $jobPost = JobPost::find($id);
+        if ($vacancy >= $jobPost->vacancy) {
+            $view = 'full';
+        }
+
+        //check if user has uploaded CV or not
+        $resume = Resume::where('user_id', Auth::user()->id)->first();
+        if (!$resume) {
+            $view = 'no_resume';
+        }
+
+        // dd($view);
+
+        $jobPost = JobPost::with('company')->where('id', $id)->first();
+        return view('website.jobpost-details', compact('jobPost', 'view'));
     }
 
     // Apply Job
     public function applyTheJob($id)
     {
-        if(Auth::user()){
+        if (Auth::user()) {
             $authId = Auth::user()->id;
             $companyGet = User::where('id', $authId)->first();
-            if($companyGet->role_id != 2 ){
+            if ($companyGet->role_id != 2) {
                 $findJob = JobPost::findOrFail($id);
                 $applyJob = new ApplyJob();
                 $applyJob->company_id = $findJob->company_id;
                 $applyJob->job_id = $findJob->id;
                 $applyJob->user_id = Auth::user()->id;
+                $applyJob->selection_status = 0;
                 $applyJob->save();
                 // Find company role id for notify
                 // $user = User::where('role_id',2)->get();
@@ -147,11 +187,11 @@ class FrontendController extends Controller
                 // Notification::send($user, new ApplyJobNotificationToCompany($applyJob));
                 notify()->success("Success", "Successfully Apply");
                 return back();
-            }else{
+            } else {
                 notify()->error("Error", "Company Can't Apply The Job !!!");
                 return back();
             }
-        }else{
+        } else {
             notify()->info('Info', 'Please Login Firs');
             return back();
         }

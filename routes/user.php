@@ -19,4 +19,5 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth', 'use
     Route::put('update-password', [UserDashboardController::class, 'updatePassword'])->name('update.password');
     Route::get('resume', [UserDashboardController::class, 'resume'])->name('resume');
     Route::post('store-resume', [UserDashboardController::class, 'storeResume'])->name('store.resume');
+    Route::post('read-notification', [UserDashboardController::class, 'readNotification'])->name('read.notification');
 });

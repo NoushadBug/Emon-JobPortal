@@ -7,7 +7,7 @@ use App\Http\Controllers\Auth\CompanyRegisterController;
 
 
 // Register / Login Route Group
-Route::group(['as' => 'company.', 'prefix' => 'company'], function(){
+Route::group(['as' => 'company.', 'prefix' => 'company'], function () {
     Route::get('register', [CompanyRegisterController::class, 'companyRegister'])->name('register');
     Route::post('register/create', [CompanyRegisterController::class, 'companyRegisterCreate'])->name('register.create');
 });
@@ -26,5 +26,10 @@ Route::group(['as' => 'company.', 'prefix' => 'company', 'middleware' => ['auth'
     Route::get('edit/job-post/{id}', [CompanyDashboardController::class, 'editJobPost'])->name('edit.job.post');
     Route::put('update/job-post/{id}', [CompanyDashboardController::class, 'updateJobPost'])->name('update.job.post');
     Route::delete('delete/job-post/{id}', [CompanyDashboardController::class, 'deleteJobPost'])->name('delete.job.post');
+    // Route::post('approve-job/{id}', [CompanyDashboardController::class, 'approveJobPost'])->name('approve-job');
+    // Route::post('reject-job/{id}', [CompanyDashboardController::class, 'rejectJobPost'])->name('reject-job');
     Route::get('job-candidate', [CompanyDashboardController::class, 'jobCandidate'])->name('job.candidate');
+    Route::post('job-approve', [CompanyDashboardController::class, 'approveJob'])->name('job.approve');
+    Route::post('job-reject', [CompanyDashboardController::class, 'rejectJob'])->name('job.reject');
+    // Route::get('candidate-resume', [CompanyDashboardController::class, 'candidateResume'])->name('candidate.resume');
 });

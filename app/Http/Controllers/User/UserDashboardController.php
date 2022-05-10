@@ -9,21 +9,33 @@ use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
 use App\Http\Controllers\Controller;
 use App\Models\Resume;
+use App\Models\ApplyJob;
+use App\Models\JobPost;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
 class UserDashboardController extends Controller
 {
-    public function dashboard(){
-        return view('user.user-dashboard');
+    public function dashboard()
+    {
+        $notificationData = ApplyJob::where([
+            ['user_id', Auth::user()->id],
+            ['selection_status', '=', 1]
+        ])->get();
+
+        //get job post name
+        foreach ($notificationData as $i => $applyJob) {
+            $notificationData[$i]->jobPost = JobPost::find($applyJob->job_id);
+        }
+        // dd($notificationData);
+        return view('user.user-dashboard', compact('notificationData'));
     }
     public function updateAvater(Request $request)
     {
         // Get Logedin User
         $user = Auth::user();
-        if ($request->hasfile('profile_photo'))
-        {
+        if ($request->hasfile('profile_photo')) {
             $profile_photo_path = public_path('uploads/users/profile-pic/' . $user->profile_photo);
             // Find and Delete Old Image
             if (File::exists($profile_photo_path)) {
@@ -37,9 +49,24 @@ class UserDashboardController extends Controller
             $filename = $user->profile_photo;
         }
         $user->update([
-            'profile_photo'=>$filename
+            'profile_photo' => $filename
         ]);
         notify()->success('User Successfully Updated.', 'Updated');
+        return back();
+    }
+
+    public function readNotification(Request $request)
+    {
+        $request->validate([
+            'job_id' => 'required',
+            'user_id' => 'required',
+        ]);
+        $job_id = $request->job_id;
+        $user_id = $request->user_id;
+        $ApplyJob = ApplyJob::where([['job_id', $job_id], ['user_id', $user_id]])->first();
+        $ApplyJob->update([
+            'selection_status' => 3,
+        ]);
         return back();
     }
 
@@ -87,13 +114,13 @@ class UserDashboardController extends Controller
                     'password' => Hash::make($request->password)
                 ]);
                 Auth::logout();
-                notify()->success('Success','Password Successfully Changed');
+                notify()->success('Success', 'Password Successfully Changed');
                 return redirect()->route('login');
             } else {
                 notify()->warning('Warning', 'New password cannot be the same as old password');
             }
         } else {
-            notify()->error('Error','Current password not match');
+            notify()->error('Error', 'Current password not match');
         }
         return redirect()->back();
     }
@@ -106,7 +133,7 @@ class UserDashboardController extends Controller
 
     public function storeResume(Request $request)
     {
-        
+        // dd($request);
         // Validation Check
         // $this->validate($request, [
         //     'resume' => 'required|mimes:pdf,doc',
@@ -114,9 +141,8 @@ class UserDashboardController extends Controller
         $authUserID = Auth::user()->id;
         $existResume = Resume::where('user_id', $authUserID)->exists();
 
-        if($existResume == false){
-            if($request->hasfile('resume'))
-            {
+        if ($existResume == false) {
+            if ($request->hasfile('resume')) {
                 $file = $request->file('resume');
                 $extension = $file->getClientOriginalExtension();
                 $fileName = time() . '.' . $extension;
@@ -127,14 +153,11 @@ class UserDashboardController extends Controller
             $resume->resume = $fileName;
             $file->move('uploads/users/resume/', $fileName);
             $resume->save();
-            notify()->success('Success','Successfully Sumbitted');
+            notify()->success('Success', 'Successfully Sumbitted');
             return back();
-        }else{
-            notify()->info('Info','Resume Already Uploaded');
+        } else {
+            notify()->info('Info', 'Resume Already Uploaded');
             return back();
         }
-
-
-        
     }
 }

@@ -10,9 +10,11 @@ use App\Models\ApplyJob;
 use App\Models\Category;
 use App\Models\District;
 use App\Models\Industry;
+use App\Models\Resume;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -31,8 +33,7 @@ class CompanyDashboardController extends Controller
     {
         // Get Logedin company
         $company = Auth::user();
-        if ($request->hasfile('profile_photo'))
-        {
+        if ($request->hasfile('profile_photo')) {
             $profile_photo_path = public_path('uploads/company/profile-pic/' . $company->profile_photo);
             // Find and Delete Old Image
             if (File::exists($profile_photo_path)) {
@@ -46,9 +47,9 @@ class CompanyDashboardController extends Controller
             $filename = $company->profile_photo;
         }
         $company->update([
-            'profile_photo'=>$filename
+            'profile_photo' => $filename
         ]);
-        notify()->success('Updated','Successfully Updated');
+        notify()->success('Updated', 'Successfully Updated');
         return back();
     }
 
@@ -105,7 +106,7 @@ class CompanyDashboardController extends Controller
                 'website_url' => $request->website_url,
             ]);
         }
-        notify()->success('Updated','Successfully Updated');
+        notify()->success('Updated', 'Successfully Updated');
         return back();
     }
     // Change Company Password
@@ -128,13 +129,13 @@ class CompanyDashboardController extends Controller
                     'password' => Hash::make($request->password)
                 ]);
                 Auth::logout();
-                notify()->success('Success','Password Successfully Changed');
+                notify()->success('Success', 'Password Successfully Changed');
                 return redirect()->route('login');
             } else {
                 notify()->warning('Warning', 'New password cannot be the same as old password');
             }
         } else {
-            notify()->error('Error','Current password not match');
+            notify()->error('Error', 'Current password not match');
         }
         return redirect()->back();
     }
@@ -166,7 +167,7 @@ class CompanyDashboardController extends Controller
     {
         $authUserID = Auth::user()->id;
         $companyId = Company::where('user_id', $authUserID)->exists();
-        if($companyId == true){
+        if ($companyId == true) {
             $this->validate($request, [
                 'category_id' => 'required',
                 'job_title' => 'required|max:255',
@@ -183,10 +184,9 @@ class CompanyDashboardController extends Controller
                 'report' => 'required|max:300',
                 'description' => 'required',
                 'job_thumbnail' => 'required|mimes:jpg,bmp,png,jpeg',
-            ]); 
+            ]);
             // Get Job Thumbnail for store
-            if($request->hasfile('job_thumbnail'))
-            {
+            if ($request->hasfile('job_thumbnail')) {
                 $file = $request->file('job_thumbnail');
                 $extension = $file->extension();
                 $fileName = time() . '.' . $extension;
@@ -202,19 +202,19 @@ class CompanyDashboardController extends Controller
             // Get image name from summer note editor
             $imageFile = $dom->getElementsByTagName('imageFile');
             // Fetch Images And Store
-            foreach($imageFile as $item => $image){
+            foreach ($imageFile as $item => $image) {
                 $data = $image->getAttribute('src');
                 list($type, $data) = explode(';', $data);
                 list(, $data)      = explode(',', $data);
                 $imgeData = base64_decode($data);
-                $image_name= "upload/" . time().$item.'.png';
+                $image_name = "upload/" . time() . $item . '.png';
                 $path = public_path() . $image_name;
                 file_put_contents($path, $imgeData);
                 $image->removeAttribute('src');
                 $image->setAttribute('src', $image_name);
             }
             $content = $dom->saveHTML();
-    
+
             $authUser = Auth::user()->id;
             $companyId = Company::where('user_id', $authUser)->first();
             $jobPost = new JobPost();
@@ -238,13 +238,12 @@ class CompanyDashboardController extends Controller
             $jobPost->status = $request->filled('status');
             $jobPost->save();
             $file->move('uploads/job-thumbnail/', $fileName);
-            notify()->success('Success','Successfully Created');
+            notify()->success('Success', 'Successfully Created');
             return back();
-        }else{
-            notify()->error('Error','Please Complete Profile First');
+        } else {
+            notify()->error('Error', 'Please Complete Profile First');
             return back();
         }
-        
     }
 
     // Edit Job Post
@@ -289,12 +288,12 @@ class CompanyDashboardController extends Controller
         // Get image name from summer note editor
         $imageFile = $dom->getElementsByTagName('imageFile');
         // Fetch Images And Store
-        foreach($imageFile as $item => $image){
+        foreach ($imageFile as $item => $image) {
             $data = $image->getAttribute('src');
             list($type, $data) = explode(';', $data);
             list(, $data)      = explode(',', $data);
             $imgeData = base64_decode($data);
-            $image_name= "upload/" . time().$item.'.png';
+            $image_name = "upload/" . time() . $item . '.png';
             $path = public_path() . $image_name;
             file_put_contents($path, $imgeData);
             $image->removeAttribute('src');
@@ -320,7 +319,7 @@ class CompanyDashboardController extends Controller
             'job_thumbnail' => $fileName,
             'status' => $request->filled('status'),
         ]);
-        notify()->success('Update','Successfully Updated');
+        notify()->success('Update', 'Successfully Updated');
         return back();
     }
 
@@ -329,26 +328,67 @@ class CompanyDashboardController extends Controller
     {
         $jobPost = JobPost::findOrFail($id);
         $jobPost->delete();
-        notify()->success('Delete','Successfully Deleted');
+        notify()->success('Delete', 'Successfully Deleted');
+        return back();
+    }
+
+    // Approve Job Post
+    public function approveJob(Request $request)
+    {
+        $request->validate([
+            'job_id' => 'required',
+            'id' => 'required',
+        ]);
+        $job_id = $request->job_id;
+        $user_id = $request->id;
+        $ApplyJob = ApplyJob::where([['job_id', $job_id], ['user_id', $user_id]])->first();
+        $ApplyJob->update([
+            'selection_status' => 1,
+        ]);
+        // dd($ApplyJob);
+        notify()->success('Application Successfully Approved', 'Approved');
+        return back();
+    }
+
+    // Reject Job Post
+    public function rejectJob(Request $request)
+    {
+        $request->validate([
+            'job_id' => 'required',
+            'id' => 'required',
+        ]);
+        $job_id = $request->job_id;
+        $user_id = $request->id;
+        $ApplyJob = ApplyJob::where([['job_id', $job_id], ['user_id', $user_id]])->first();
+        $ApplyJob->update([
+            'selection_status' => 2,
+        ]);
+        notify()->success('Application Successfully Rejected', 'Rejected');
         return back();
     }
 
 
     // Job Candidate
-    public function jobCandidate()
+    public function jobCandidate(Request $request)
     {
+
         $authCompanyId = Auth::user()->id;
         $companyId = Company::where('user_id', $authCompanyId)->first();
         if ($companyId == null) {
-            notify()->warning('Warning','No candidate has applied');
+            notify()->warning('Warning', 'No candidate has applied');
             return back();
         } else {
-            $allAppliedCandidate = ApplyJob::where('company_id', $companyId->id)->get();
-            foreach ($allAppliedCandidate as $key=> $candidate) {
-                $users = User::where('id', $candidate->user_id)->get();
+            $users = [];
+            $allAppliedCandidate = ApplyJob::where('selection_status', '<', 1)->get();
+            foreach ($allAppliedCandidate as $key => $candidate) {
+                $userRow = User::where('id', $candidate->user_id)->first();
+                $resumes = Resume::where('user_id', $userRow->id)->first();
+                $userRow->job_id = $candidate->job_id;
+                $userRow->resume = $resumes;
+                array_push($users, $userRow);
             }
+            // dd($users);
             return view('company.job-candidate', compact('users'));
         }
-
     }
 }
